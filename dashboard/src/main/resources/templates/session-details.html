@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session Details | MoveWell AI</title>
+
+    <style>
+        :root {
+            --navy: #0f2a43;
+            --bg: #f4f6f9;
+            --card: #ffffff;
+            --border: #dde3ea;
+            --text: #1f2d3d;
+            --muted: #64748b;
+            --accent: #1f6f8b;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .topbar {
+            background: var(--navy);
+            color: #fff;
+            padding: 0 40px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 3px solid var(--accent);
+        }
+        .brand { font-size: 18px; font-weight: 600; letter-spacing: 0.4px; }
+        .brand span { color: #8fc7d9; font-weight: 400; }
+        .topbar .role { font-size: 13px; color: #b9c8d6; }
+
+        main { max-width: 1000px; margin: 0 auto; padding: 28px 24px 48px; }
+
+        .crumbs { font-size: 13px; color: var(--muted); margin-bottom: 14px; }
+        .crumbs a { color: var(--accent); text-decoration: none; font-weight: 600; }
+        .crumbs a:hover { text-decoration: underline; }
+
+        h1 { margin: 0 0 4px; font-size: 24px; font-weight: 600; }
+        .sub { color: var(--muted); margin: 0 0 24px; }
+
+        .panel {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            margin-bottom: 28px;
+        }
+        .panel-head { padding: 16px 22px; border-bottom: 1px solid var(--border); }
+        .panel-head h2 { margin: 0; font-size: 16px; font-weight: 600; }
+
+        .details { display: grid; grid-template-columns: 1fr 1fr; }
+        .field { padding: 16px 22px; border-bottom: 1px solid #eef1f5; }
+        .field .label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+            color: var(--muted);
+            margin-bottom: 4px;
+        }
+        .field .val { font-size: 15px; font-weight: 600; color: var(--navy); }
+
+        .table-wrap { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; }
+        th {
+            text-align: left;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--muted);
+            background: #f8fafc;
+            padding: 12px 22px;
+            border-bottom: 1px solid var(--border);
+            font-weight: 600;
+        }
+        td { padding: 14px 22px; border-bottom: 1px solid #eef1f5; }
+        tr:last-child td { border-bottom: none; }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+        .tag-hold_too_short { background: #fdf0d5; color: #7a5200; }
+        .tag-movement_too_fast { background: #fde4e1; color: #8a2a1d; }
+        .tag-tracking_lost { background: #e4eaf1; color: #3a4b5f; }
+
+        footer {
+            text-align: center;
+            color: var(--muted);
+            font-size: 12px;
+            padding: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        @media (max-width: 650px) {
+            .details { grid-template-columns: 1fr; }
+            .topbar { padding: 0 20px; }
+        }
+    </style>
+</head>
+
+<body>
+<div class="topbar">
+    <div class="brand">MoveWell <span>AI</span></div>
+    <div class="role">Therapist Review Portal</div>
+</div>
+
+<main>
+    <div class="crumbs">
+        <a href="/">Dashboard</a> / Session details
+    </div>
+
+    <h1>Session Details</h1>
+    <p class="sub" th:text="${sessionData['exercise_name']}">Exercise</p>
+
+    <section class="panel">
+        <div class="panel-head"><h2>Summary</h2></div>
+        <div class="details">
+            <div class="field">
+                <div class="label">Session ID</div>
+                <div class="val" th:text="${sessionData['session_id']}"></div>
+            </div>
+            <div class="field">
+                <div class="label">Exercise</div>
+                <div class="val" th:text="${sessionData['exercise_name']}"></div>
+            </div>
+            <div class="field">
+                <div class="label">Started</div>
+                <div class="val" th:text="${#strings.replace(sessionData['started_at'],'T',' ')}"></div>
+            </div>
+            <div class="field">
+                <div class="label">Ended</div>
+                <div class="val" th:text="${#strings.replace(sessionData['ended_at'],'T',' ')}"></div>
+            </div>
+            <div class="field">
+                <div class="label">Completed Repetitions</div>
+                <div class="val" th:text="${sessionData['rep_count']}"></div>
+            </div>
+            <div class="field">
+                <div class="label">Attempted Repetitions</div>
+                <div class="val" th:text="${sessionData['attempted_reps']}"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="panel">
+        <div class="panel-head"><h2>Flagged Events</h2></div>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rule</th>
+                        <th>Time</th>
+                        <th>Reason</th>
+                        <th>Confidence</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="f : ${flags}">
+                        <td>
+                            <span class="badge"
+                                  th:classappend="${'tag-' + f['rule_id']}"
+                                  th:text="${#strings.replace(f['rule_id'],'_',' ')}">rule</span>
+                        </td>
+                        <td th:text="${#strings.replace(f['timestamp'],'T',' ')}"></td>
+                        <td th:text="${f['reason']}"></td>
+                        <td th:text="${#numbers.formatPercent(f['confidence'],1,0)}"></td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(flags)}">
+                        <td colspan="4">No flags for this session.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+
+<footer>MoveWell AI &middot; Therapist Review Portal &middot; Prototype</footer>
+</body>
+</html>
