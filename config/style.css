@@ -1,0 +1,48 @@
+:root {
+  --bg: #f5f7f6;
+  --ink: #1d2b29;
+  --accent: #1f7a6d;
+  --warn: #b4531c;
+  --card: #ffffff;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+}
+.banner {
+  background: var(--ink);
+  color: #fff;
+  text-align: center;
+  padding: 8px;
+  font-size: 14px;
+}
+main { max-width: 720px; margin: 0 auto; padding: 16px; }
+h1 { margin: 8px 0 4px; font-size: 26px; }
+.intro { margin: 0 0 12px; color: #4a5b58; }
+
+/* Video and canvas sit on top of each other */
+.stage { position: relative; width: 100%; background: #000; border-radius: 8px; overflow: hidden; }
+.stage video, .stage canvas { display: block; width: 100%; height: auto; }
+.stage canvas { position: absolute; top: 0; left: 0; height: 100%; }
+
+.controls { display: flex; gap: 8px; margin: 12px 0; }
+button {
+  flex: 1; padding: 12px; font-size: 16px; border: 0; border-radius: 6px;
+  background: var(--accent); color: #fff; cursor: pointer;
+}
+button:disabled { background: #a9b8b5; cursor: not-allowed; }
+button:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+
+.stats { display: flex; gap: 8px; }
+.stats div {
+  flex: 1; background: var(--card); border-radius: 6px; padding: 12px; text-align: center;
+}
+.big { display: block; font-size: 28px; font-weight: 600; }
+.label { font-size: 13px; color: #4a5b58; }
+
+.message { font-size: 18px; margin: 16px 0 4px; min-height: 2.5em; }
+.message.warn { color: var(--warn); font-weight: 600; }
+.connection { font-size: 13px; color: #6b7a77; }

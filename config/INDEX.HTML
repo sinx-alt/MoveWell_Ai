@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Physio Companion</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Permanent safety banner (required by the guide) -->
+  <div class="banner">Hackathon prototype – not medical advice.</div>
+
+  <main>
+    <h1>Seated knee extension</h1>
+    <p class="intro">Sit sideways to the camera so your whole leg is visible.</p>
+
+    <!-- Camera video with the skeleton canvas drawn on top -->
+    <div class="stage">
+      <video id="video" autoplay playsinline muted></video>
+      <canvas id="overlay"></canvas>
+    </div>
+
+    <div class="controls">
+      <button id="startBtn">Start session</button>
+      <button id="endBtn" disabled>End session</button>
+    </div>
+
+    <!-- Live data from the backend -->
+    <section class="stats">
+      <div><span id="repCount" class="big">0</span><span class="label">Reps</span></div>
+      <div><span id="phase" class="big">–</span><span class="label">Phase</span></div>
+      <div><span id="trackingStatus" class="big">–</span><span class="label">Tracking</span></div>
+    </section>
+
+    <!-- Approved messages appear here -->
+    <p id="message" class="message" aria-live="polite">Press Start session to begin.</p>
+    <p id="connection" class="connection">Not connected</p>
+  </main>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
