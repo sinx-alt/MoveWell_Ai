@@ -1,270 +1,106 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MoveWell AI | Therapist Dashboard</title>
-
-    <style>
-        :root {
-            --navy: #0f2a43;
-            --navy-light: #1b3d5d;
-            --bg: #f4f6f9;
-            --card: #ffffff;
-            --border: #dde3ea;
-            --text: #1f2d3d;
-            --muted: #64748b;
-            --accent: #1f6f8b;
-        }
-
-        * { box-sizing: border-box; }
-
-        body {
-            margin: 0;
-            font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            font-size: 14px;
-            line-height: 1.5;
-        }
-
-        .topbar {
-            background: var(--navy);
-            color: #fff;
-            padding: 0 40px;
-            height: 64px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 3px solid var(--accent);
-        }
-
-        .brand { font-size: 18px; font-weight: 600; letter-spacing: 0.4px; }
-        .brand span { color: #8fc7d9; font-weight: 400; }
-        .topbar .role { font-size: 13px; color: #b9c8d6; }
-
-        main { max-width: 1200px; margin: 0 auto; padding: 32px 24px 48px; }
-
-        .page-head { margin-bottom: 24px; }
-        .page-head h1 { margin: 0 0 4px; font-size: 24px; font-weight: 600; }
-        .page-head p { margin: 0; color: var(--muted); }
-
-        .notice {
-            background: #fbf6e9;
-            border: 1px solid #ead9a6;
-            border-left: 4px solid #c99a1d;
-            color: #6b5410;
-            padding: 12px 16px;
-            border-radius: 4px;
-            margin-bottom: 28px;
-            font-size: 13px;
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
-            margin-bottom: 28px;
-        }
-
-        .stat {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-top: 3px solid var(--accent);
-            border-radius: 4px;
-            padding: 18px 20px;
-        }
-
-        .stat .label {
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            color: var(--muted);
-            margin-bottom: 8px;
-        }
-
-        .stat .value { font-size: 30px; font-weight: 600; color: var(--navy); }
-
-        .panel {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            margin-bottom: 28px;
-        }
-
-        .panel-head { padding: 18px 22px; border-bottom: 1px solid var(--border); }
-        .panel-head h2 { margin: 0 0 2px; font-size: 16px; font-weight: 600; }
-        .panel-head p { margin: 0; color: var(--muted); font-size: 13px; }
-
-        .table-wrap { overflow-x: auto; }
-
-        table { width: 100%; border-collapse: collapse; }
-
-        th {
-            text-align: left;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.6px;
-            color: var(--muted);
-            background: #f8fafc;
-            padding: 12px 22px;
-            border-bottom: 1px solid var(--border);
-            font-weight: 600;
-        }
-
-        td { padding: 14px 22px; border-bottom: 1px solid #eef1f5; }
-        tr:last-child td { border-bottom: none; }
-        tbody tr:hover { background: #fafbfd; }
-
-        .mono { font-family: Consolas, "Courier New", monospace; font-size: 13px; }
-
-        .link {
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 600;
-        }
-        .link:hover { text-decoration: underline; }
-
-        .badge {
-            display: inline-block;
-            padding: 3px 10px;
-            border-radius: 3px;
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: capitalize;
-        }
-        .tag-hold_too_short { background: #fdf0d5; color: #7a5200; }
-        .tag-movement_too_fast { background: #fde4e1; color: #8a2a1d; }
-        .tag-tracking_lost { background: #e4eaf1; color: #3a4b5f; }
-
-        footer {
-            text-align: center;
-            color: var(--muted);
-            font-size: 12px;
-            padding: 20px;
-            border-top: 1px solid var(--border);
-        }
-
-        @media (max-width: 900px) {
-            .stats { grid-template-columns: repeat(2, 1fr); }
-            .topbar { padding: 0 20px; }
-        }
-        @media (max-width: 500px) {
-            .stats { grid-template-columns: 1fr; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MoveWell AI | Therapist Dashboard</title>
+  <link rel="stylesheet" th:href="@{/style.css}">
 </head>
-
 <body>
-<div class="topbar">
-    <div class="brand">MoveWell <span>AI</span></div>
-    <div class="role">Therapist Review Portal</div>
+<div class="app">
+  <aside class="sidebar">
+    <div class="logo"><div class="logo-mark">M</div><div><b>MoveWell AI</b><small>Therapist Review</small></div></div>
+    <nav class="nav">
+      <a href="/" class="active">▦ &nbsp;Dashboard</a>
+      <a href="/#sessions">◷ &nbsp;Sessions</a>
+      <a href="/#flags">⚑ &nbsp;Flagged Events</a>
+    </nav>
+    <div class="side-foot">Prototype – not clinically validated</div>
+  </aside>
+
+  <div class="content">
+    <header class="topbar"><span class="brand">MoveWell AI</span><span class="role">Therapist Review Portal</span></header>
+    <div class="banner">Hackathon prototype – not medical advice.</div>
+
+    <main>
+      <div class="page-head">
+        <h1>Dashboard</h1>
+        <p>Here’s an overview of exercise sessions and flagged events.</p>
+      </div>
+
+      <section class="stats">
+        <div class="stat">
+          <div class="stat-top"><span>Sessions</span><span class="chip green">◷</span></div>
+          <div class="num green" th:text="${totalSessions}">4</div>
+          <a class="stat-link" href="#sessions">View all sessions ›</a>
+        </div>
+        <div class="stat">
+          <div class="stat-top"><span>Completed reps</span><span class="chip blue">✓</span></div>
+          <div class="num blue" th:text="${totalReps}">36</div>
+          <a class="stat-link" href="#sessions">See per session ›</a>
+        </div>
+        <div class="stat">
+          <div class="stat-top"><span>Attempted reps</span><span class="chip orange">↻</span></div>
+          <div class="num orange" th:text="${totalAttempts}">6</div>
+          <a class="stat-link" href="#sessions">See per session ›</a>
+        </div>
+        <div class="stat">
+          <div class="stat-top"><span>Flagged events</span><span class="chip red">⚑</span></div>
+          <div class="num red" th:text="${totalFlags}">4</div>
+          <a class="stat-link" href="#flags">Review flags ›</a>
+        </div>
+      </section>
+
+      <section class="panel" id="sessions">
+        <div class="panel-head"><h2><i>◷</i>Session history</h2><p>All recorded exercise sessions.</p></div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Session</th><th>Exercise</th><th>Started</th><th>Completed</th><th>Attempted</th><th></th></tr>
+            </thead>
+            <tbody>
+              <tr th:each="s : ${sessions}">
+                <td class="mono" th:text="${s['session_id']}">demo-001</td>
+                <td th:text="${#strings.capitalizeWords(#strings.replace(s['exercise_name'],'_',' '))}">Seated knee extension</td>
+                <td th:text="${#strings.replace(s['started_at'],'T',' ')}">Date</td>
+                <td><span class="pill" th:text="${s['rep_count']}">10</span></td>
+                <td><span class="pill" th:text="${s['attempted_reps']}">1</span></td>
+                <td><a class="link" th:href="@{/sessions/{id}(id=${s['session_id']})}">View details ›</a></td>
+              </tr>
+              <tr th:if="${#lists.isEmpty(sessions)}">
+                <td colspan="6" class="empty"><b>◷</b>No sessions saved yet.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel" id="flags">
+        <div class="panel-head"><h2><i>⚑</i>Flagged events</h2><p>Each flag shows the rule that triggered it, the time and the reason.</p></div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Session</th><th>Rule</th><th>Time</th><th>Reason</th><th>Confidence</th></tr>
+            </thead>
+            <tbody>
+              <tr th:each="f : ${flags}">
+                <td class="mono" th:text="${f['session_id']}">demo-001</td>
+                <td><span class="badge" th:classappend="${'tag-' + f['rule_id']}" th:text="${#strings.replace(f['rule_id'],'_',' ')}">rule</span></td>
+                <td th:text="${#strings.replace(f['timestamp'],'T',' ')}">Time</td>
+                <td th:text="${f['reason']}">Reason</td>
+                <td th:text="${#numbers.formatPercent(f['confidence'],1,0)}">70%</td>
+              </tr>
+              <tr th:if="${#lists.isEmpty(flags)}">
+                <td colspan="5" class="empty"><b>✓</b>All clear for now.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer>MoveWell AI · Flags are observations, not diagnoses.</footer>
+  </div>
 </div>
-
-<main>
-    <div class="page-head">
-        <h1>Session Overview</h1>
-        <p>Review exercise sessions, repetition totals and flagged events.</p>
-    </div>
-
-    <div class="notice">
-        <strong>Prototype notice:</strong>
-        This is a hackathon prototype and is not a clinically validated medical device.
-        Flags are not medical diagnoses.
-    </div>
-
-    <section class="stats">
-        <div class="stat">
-            <div class="label">Total Sessions</div>
-            <div class="value" th:text="${totalSessions}">4</div>
-        </div>
-        <div class="stat">
-            <div class="label">Completed Repetitions</div>
-            <div class="value" th:text="${totalReps}">36</div>
-        </div>
-        <div class="stat">
-            <div class="label">Attempted Repetitions</div>
-            <div class="value" th:text="${totalAttempts}">6</div>
-        </div>
-        <div class="stat">
-            <div class="label">Flagged Events</div>
-            <div class="value" th:text="${totalFlags}">4</div>
-        </div>
-    </section>
-
-    <section class="panel">
-        <div class="panel-head">
-            <h2>Session History</h2>
-            <p>All recorded exercise sessions.</p>
-        </div>
-        <div class="table-wrap">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Session ID</th>
-                        <th>Exercise</th>
-                        <th>Started</th>
-                        <th>Completed</th>
-                        <th>Attempted</th>
-                        <th>Details</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="s : ${sessions}">
-                        <td class="mono" th:text="${s['session_id']}">demo-001</td>
-                        <td th:text="${s['exercise_name']}">Seated Knee Extension</td>
-                        <td th:text="${#strings.replace(s['started_at'],'T',' ')}">Date</td>
-                        <td th:text="${s['rep_count']}">10</td>
-                        <td th:text="${s['attempted_reps']}">1</td>
-                        <td>
-                            <a class="link" th:href="@{/sessions/{id}(id=${s['session_id']})}">View details</a>
-                        </td>
-                    </tr>
-                    <tr th:if="${#lists.isEmpty(sessions)}">
-                        <td colspan="6">No sessions available.</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
-
-    <section class="panel">
-        <div class="panel-head">
-            <h2>Flagged Events</h2>
-            <p>Each flag shows the rule that triggered it, the time and the reason.</p>
-        </div>
-        <div class="table-wrap">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Session</th>
-                        <th>Rule</th>
-                        <th>Time</th>
-                        <th>Reason</th>
-                        <th>Confidence</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="f : ${flags}">
-                        <td class="mono" th:text="${f['session_id']}">demo-001</td>
-                        <td>
-                            <span class="badge"
-                                  th:classappend="${'tag-' + f['rule_id']}"
-                                  th:text="${#strings.replace(f['rule_id'],'_',' ')}">rule</span>
-                        </td>
-                        <td th:text="${#strings.replace(f['timestamp'],'T',' ')}">Time</td>
-                        <td th:text="${f['reason']}">Reason</td>
-                        <td th:text="${#numbers.formatPercent(f['confidence'],1,0)}">70%</td>
-                    </tr>
-                    <tr th:if="${#lists.isEmpty(flags)}">
-                        <td colspan="5">No flagged events available.</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
-</main>
-
-<footer>MoveWell AI &middot; Therapist Review Portal &middot; Prototype</footer>
 </body>
 </html>
